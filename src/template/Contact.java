@@ -1,7 +1,7 @@
 package template;
 
 /**
- * model a Contact 
+ * model a Contact
  * Contact has a name & list of phonebook entries
  * 
  * Support adding phonebookEntry to a contact
