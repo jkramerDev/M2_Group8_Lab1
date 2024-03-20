@@ -26,5 +26,54 @@ class Contact {
 		}
 	}
 	
-	// TODO addition of entries, hashcode, and equals
+	public Contact(String name) {
+		this(name, "");
+	}
+	
+	public String getFirstName() {
+		return this.firstName;
+	}
+	
+	public String getLastName() {
+		return this.lastName;
+	}
+	
+	public String getName() {
+		return this.firstName + " " + this.lastName;
+	}
+	
+	public ArrayList<PhonebookEntry> getPhonebookEntries() {
+		return this.phonebookEntries;
+	}
+	
+	@Override
+	public int hashCode() {
+		int lnHash = this.lastName.hashCode();
+		int fnHash = this.firstName.hashCode();
+		int feHash = this.phonebookEntries.get(0).getPhoneNumber().getLongPhoneNumber().hashCode();
+		
+		return lnHash + fnHash + feHash;
+	}
+	
+//	@Override
+	// ?? it doesn't like my override here for some reason
+	public boolean equals(Contact c) {
+		return this.hashCode() == c.hashCode() && this.getPhonebookEntries().containsAll(c.phonebookEntries);
+	}
+	
+	public boolean addPhonebookEntry(PhonebookEntry newEntry) {
+		return this.phonebookEntries.add(newEntry);
+	}
+	
+	public boolean addPhonebookEntry(String number, String type) {
+		switch(type) {
+		case "Home":
+			return this.addPhonebookEntry(new PhonebookEntry(PhoneType.HOME, new PhoneNumber(Long.parseLong(number))));
+		case "Work":
+			return this.addPhonebookEntry(new PhonebookEntry(PhoneType.WORK, new PhoneNumber(Long.parseLong(number))));
+		case "Cell":
+			return this.addPhonebookEntry(new PhonebookEntry(PhoneType.MOBILE, new PhoneNumber(Long.parseLong(number))));
+		}
+		return false;
+	}
 }
